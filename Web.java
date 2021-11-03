@@ -21,7 +21,6 @@ public interface Web<E> {
     abstract boolean retainAll(Collection<?> c);
     abstract E set(int index, E element);
     abstract int size();
-    abstract List<E> subList(int fromIndex, int toIndex);
     abstract Object[] toArray();
     abstract <T> T[] toArray(T[] a);
 }
