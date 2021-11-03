@@ -1,5 +1,4 @@
 import java.util.Collection;
-import java.util.List;
 
 public interface Web<E> {
     abstract boolean add(E e);
