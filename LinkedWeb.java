@@ -4,10 +4,10 @@ import java.util.List;
 
 public class LinkedWeb<E> implements Web<E>{
     
-    ArrayList<Point<E>> web;
+    ArrayList<Node<E>> web;
 
     public LinkedWeb(){
-        web = new ArrayList<Point<E>>();
+        web = new ArrayList<Node<E>>();
     }
 
     @Override
@@ -31,158 +31,143 @@ public class LinkedWeb<E> implements Web<E>{
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        
+        web.clear();
     }
 
     @Override
     public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        return false;
+        return web.contains(o);
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
+        return web.containsAll(c);
     }
 
     @Override
     public E get(int index) {
-        // TODO Auto-generated method stub
-        return null;
+        return web.get(index).getElement();
     }
 
     @Override
     public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return web.indexOf(o);
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return web.isEmpty();
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return web.lastIndexOf(o);
     }
 
     @Override
     public E remove(int index) {
-        // TODO Auto-generated method stub
-        return null;
+        return web.remove(index).getElement();
     }
 
     @Override
     public boolean remove(Object o) {
-        // TODO Auto-generated method stub
-        return false;
+        return web.remove(o);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
+        return web.removeAll(c);
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        return false;
+        return web.retainAll(c);
     }
 
     @Override
     public E set(int index, E element) {
-        // TODO Auto-generated method stub
-        return null;
+        return web.set(index, new Node<E>(element)).getElement();
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public List<E> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        return null;
+        return web.size();
     }
 
     @Override
     public Object[] toArray() {
-        // TODO Auto-generated method stub
-        return null;
+        return web.toArray();
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        // TODO Auto-generated method stub
-        return null;
+        return web.toArray(a);
     }
 
 
 }
 
-class Point<E>{
+class Node<E>{
 
-    Object obj;
-    ArrayList<Point<E>> surroundings;
+    private E element;
+    private ArrayList<Node<E>> nodes;
 
     //constructor
-    public Point(Object obj){
-        this.obj = obj;
-        surroundings = new ArrayList<>(); 
+    public Node(E e){
+        this.element = e;
+        nodes = new ArrayList<>(); 
     }
 
-    public void set(Object obj){
-        this.obj = obj;
+    public E getElement(){
+        return element;
     }
 
-    public void set(Point<E>[] points){
+    public Object[] getNodes(){
+        return nodes.toArray();
+    }
+    public void set(E e){
+        this.element = e;
+    }
+
+    public void set(Node<E>[] a){
         clear();
-        add(points);
+        add(a);
     }
     
-    public void set(Point<E> current, Point<E> old){
-        if(surroundings.contains(old)){
-            surroundings.set(surroundings.indexOf(old), current);
+    public void set(Node<E> current, Node<E> old){
+        if(nodes.contains(old)){
+            nodes.set(nodes.indexOf(old), current);
         }
     }
 
-    public void remove(Point<E>[] points){
-        for (Point<E> p : points) {
-            if (surroundings.contains(p)){
-               surroundings.remove(p);
+    public void remove(Node<E>[] a){
+        for (Node<E> n : a) {
+            if (nodes.contains(n)){
+               nodes.remove(n);
             }
         }
     }
-    public void remove(Point<E> point){
-        if (surroundings.contains(point)){
-            surroundings.remove(point);
+    public void remove(Node<E> n){
+        if (nodes.contains(n)){
+            nodes.remove(n);
         }
     }
 
-    public void add(Point<E>[] points){
-        for (Point<E> p : points) {
-            surroundings.add(p);
+    public void add(Node<E>[] a){
+        for (Node<E> n : a) {
+            nodes.add(n);
         }
     }
-    public void add(Point<E> point){
-        surroundings.add(point);
+    public void add(Node<E> n){
+        nodes.add(n);
     }
 
     public void clear(){
-        surroundings.clear();
+        nodes.clear();
     }
 }
