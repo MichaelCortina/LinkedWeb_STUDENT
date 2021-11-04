@@ -1,7 +1,13 @@
 import java.util.Collection;
-import java.util.List;
 
 public interface Web<E> {
+    abstract Object[] getNodes(int index);
+    abstract boolean addAllNodes(int index, Collection<? extends E> c);
+    abstract boolean addNode(int index, E element);
+    abstract boolean removeNode(int index, Object o);
+    abstract boolean containsNode(int index, Object o);
+    abstract boolean removeAllNodes(int index, Collection<?> c);
+
     abstract boolean add(E e);
     abstract void add(int index, E element);
     abstract boolean addAll(Collection<? extends E> c);
