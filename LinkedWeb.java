@@ -8,29 +8,71 @@ public class LinkedWeb<E> implements Web<E>{
     public LinkedWeb(){
         web = new ArrayList<Node<E>>();
     }
+    
+    @Override
+    public Object[] getNodes(int index) {
+        return web.get(index).toArray();
+    }
 
     @Override
-    public boolean add(E e) {
-        // TODO Auto-generated method stub
-        
-        return false;
+    public boolean addAllNodes(int index, Collection<? extends E> c) {
+        return web.get(index).addAll(c);
+    }
+
+
+    @Override
+    public boolean addNode(int index, E element) {
+        return web.get(index).add(element);
+    }
+
+    @Override
+    public boolean removeNode(int index, Object o) {
+        return web.get(index).remove(o);
+    }
+
+
+    @Override
+    public boolean containsNode(int index, Object o) {
+        return web.get(index).contains(o);
+    }
+
+
+    @Override
+    public boolean removeAllNodes(int index, Collection<?> c) {
+        return web.get(index).removeAll(c);
+    }
+
+    @Override
+    public boolean add(E element) {
+        return web.add(new Node<E>(element));
     }
 
     @Override
     public void add(int index, E element) {
-        // TODO Auto-generated method stub
-        
+        web.add(index, new Node<E>(element));
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        // TODO Auto-generated method stub
-        return false;
+        if (c.size() <= 0){
+            return false;
+        }
+        for (E e : c) {
+            add(e);
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        return false;
+        if (c.size() <= 0){
+            return false;
+        }
+        for (E e : c) {
+            add(index, e);
+            index++;
+        }
+        return true;
     }
 
     @Override
@@ -107,14 +149,12 @@ public class LinkedWeb<E> implements Web<E>{
     public <T> T[] toArray(T[] a) {
         return web.toArray(a);
     }
-
-
 }
 
 class Node<E>{
 
     private E element;
-    private ArrayList<Node<E>> nodes;
+    private ArrayList<E> nodes;
 
     //constructor
     public Node(E e){
@@ -126,47 +166,47 @@ class Node<E>{
         return element;
     }
 
-    public Object[] getNodes(){
+    public Object[] toArray(){
         return nodes.toArray();
     }
+
     public void set(E e){
         this.element = e;
     }
-
-    public void set(Node<E>[] a){
-        clear();
-        add(a);
-    }
     
-    public void set(Node<E> current, Node<E> old){
-        if(nodes.contains(old)){
-            nodes.set(nodes.indexOf(old), current);
-        }
+    public E set(int index, E e){
+        return nodes.set(index, e);
     }
 
-    public void remove(Node<E>[] a){
-        for (Node<E> n : a) {
-            if (nodes.contains(n)){
-               nodes.remove(n);
-            }
-        }
-    }
-    public void remove(Node<E> n){
-        if (nodes.contains(n)){
-            nodes.remove(n);
-        }
+    public boolean removeAll(Collection<?> c){
+        return nodes.removeAll(c);
     }
 
-    public void add(Node<E>[] a){
-        for (Node<E> n : a) {
-            nodes.add(n);
-        }
+    public boolean remove(Object o){
+        return nodes.remove(o);
     }
-    public void add(Node<E> n){
-        nodes.add(n);
+
+    public boolean addAll(Collection<? extends E> c){
+        return addAll(c);
+    }
+
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return addAll(index, c);
+    }
+
+    public boolean add(E element){
+        return nodes.add(element);
+    }
+
+    public void add(int index, E element) {
+        nodes.add(index, element);
     }
 
     public void clear(){
         nodes.clear();
+    }
+
+    public boolean contains(Object o){
+        return nodes.contains(o);
     }
 }
